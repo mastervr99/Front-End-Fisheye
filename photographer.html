@@ -1,21 +1,47 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/photographer.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
     <title>Fisheye - photographe </title>
   </head>
   <body>
     <header>
       <img src="assets/images/logo.png" class="logo" />
     </header>
+
     <main id="main">
       <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <div>
+          <h1 class="photographer-name"></h1>
+          <h3 class="location-name"></h3>
+          <p class="tagline"></p>
+        </div>
+        <div>
+          <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        </div>
+        <div>
+          <img class="photographer-image" src="" alt="">
+        </div>
+      </div>
+      <div class="photograph-body">
+        <div class="dropdown-list">
+          <span>Trier par</span>
+          <ul class="dropdown-list-filter">
+            <li class="filter-option">Popularité</li>
+            <li class="filter-option hidden">Date</li>
+            <li class="filter-option hidden">Titre</li>
+          </ul>
+        </div>
+        <div class="images-gallery"></div>
       </div>
     </main>
+    
     <div id="contact_modal">
 			<div class="modal">
 				<header>
@@ -31,7 +57,7 @@
 				</form>
 			</div>
 		</div>
-    <script src="/scripts/pages/photographer.js"></script>
-    <script src="/scripts/utils/contactForm.js"></script>
+    <script src="./scripts/pages/photographer.js"></script>
+    <script src="./scripts/utils/contactForm.js"></script>
   </body>
 </html>
