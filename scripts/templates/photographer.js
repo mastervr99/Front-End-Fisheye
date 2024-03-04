@@ -1,6 +1,6 @@
 function photographerTemplate(data) {
     const { id, name, portrait, city, country, tagline, price } = data;
-    const picture = `../../project_6/Front-End-Fisheye-main/assets/photographers/${portrait}`;
+    const picture = `../../assets/photographers/${portrait}`;
 
     function getUserCardDOM() {
         const article = document.createElement( 'article' );

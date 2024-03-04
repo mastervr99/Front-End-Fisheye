@@ -95,6 +95,7 @@ header img {
 .image-item img, .image-item video {
     width: 350px;
     height: 300px;
+    object-fit:cover;
 }
 
 .imagesInfos {
@@ -108,35 +109,120 @@ header img {
     align-items: center;
 }
 
+/* i.fa-heart {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+} */
+
 .like_icon .icon-click {
-    display: none;
+    color: red;
 }
+
+.img_modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    padding-top: 100px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.9); 
+  }
+  
+  .image-modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+  }
+  
+  .image_close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .image_close:hover,
+  .image_close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+  }
+  
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  .prev {
+    left: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  .prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
 
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
-    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    width: 599px;
+    height: 830px;
     padding: 35px;
-    margin: auto;
+    margin: 0;
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 10;
 }
 
 .modal header {
+    display: flex;
     justify-content: space-between;
     width: 100%;
 }
 
-.modal header img {
-    cursor: pointer;
+.modal header h2 {
+    font-family: "DM Sans", sans-serif;
+    font-size: 64px;
+    font-weight: 400;
+    text-align: left;
+    margin: 0;
 }
 
-.modal header h2 {
-    font-size: 64px;
-    font-weight: normal;
-    text-align: center;
+.modal header img {
+    cursor: pointer;
+    margin: 0;
+    width: 72px;
 }
 
 form {
@@ -165,3 +251,4 @@ form input {
     border: none;
     border-radius: 5px;
 }
+

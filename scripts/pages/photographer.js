@@ -8,7 +8,7 @@ function getPhotographerIdFromUrl() {
 async function getPhotographerById(id) {
 
     try {
-        let response = await fetch('../../project_6/Front-End-Fisheye-main/data/photographers.json');
+        let response = await fetch('../../data/photographers.json');
 
         if (!response.ok) {
             throw new Error("Erreur HTTP : " + response.status);
@@ -26,8 +26,7 @@ async function getPhotographerById(id) {
 async function getPhotographerIamgesById(id) {
 
     try {
-        let response = await fetch('../../project_6/Front-End-Fisheye-main/data/photographers.json');
-
+        let response = await fetch('../../data/photographers.json');
         if (!response.ok) {
             throw new Error("Erreur HTTP : " + response.status);
         }
@@ -44,20 +43,34 @@ async function getPhotographerIamgesById(id) {
 async function displayPhotographerData() {
     const photographerId = getPhotographerIdFromUrl();
     const photographer = await getPhotographerById(photographerId);
-    const picture = `../../project_6/Front-End-Fisheye-main/assets/photographers/${photographer.portrait}`;
+    const picture = `../../assets/photographers/${photographer.portrait}`;
   
     document.querySelector('.photographer-name').innerHTML = photographer.name;
     document.querySelector('.location-name').innerHTML = photographer.city + ", " + photographer.country;
     document.querySelector('.tagline').innerHTML = photographer.tagline;
     document.querySelector('.photographer-image').setAttribute("src", picture);
+
+    document.querySelector('.modal h2').innerHTML+= ' '+photographer.name;
 }
 
 async function displayPhotographerImages(images){
     let galleryDiv = document.querySelector('.images-gallery');
     let photographerId = getPhotographerIdFromUrl();
     let photographer = await getPhotographerById(photographerId);
-    
-    images.forEach(image => {
+
+    let currentIndex = 0;
+
+    let prev = document.querySelector('.prev');
+    let next = document.querySelector('.next');
+
+    var modal = document.getElementById('image_modal');
+    var modalImg = document.getElementById("img_content");
+    var modalVideo = document.getElementById("video_content");
+    var modalVideoSource = document.querySelector("video-modal-source");
+    var captionText = document.getElementById("image_caption");
+
+    images.forEach((image, index) => {
+        
         let imgDiv = document.createElement('div');
         imgDiv.className = 'image-item';
 
@@ -65,17 +78,72 @@ async function displayPhotographerImages(images){
 
         if (image.video) {
             mediaElement = document.createElement('video');
-            mediaElement.controls = true;
+            mediaElement.classList.add('video-item');
             let source = document.createElement('source');
-            source.src = `../../project_6/Front-End-Fisheye-main/assets/Sample_Photos/${photographer.name}/${image.video}`;
+            source.src = `../../assets/Sample_Photos/${photographer.name}/${image.video}`;
             source.type = 'video/mp4';
             mediaElement.appendChild(source);
-        } else if (image.image) {
+
+            mediaElement.onmouseover = function() {
+                this.controls = true;
+            };
+            
+            mediaElement.onmouseout = function() {
+                this.controls = false;
+            };
+
+        } else {
             mediaElement = document.createElement('img');
-            mediaElement.src = `../../project_6/Front-End-Fisheye-main/assets/Sample_Photos/${photographer.name}/${image.image}`;
+            mediaElement.src = `../../assets/Sample_Photos/${photographer.name}/${image.image}`;
+
         }
         mediaElement.alt = image.title;
+        
+        mediaElement.onclick = function(){
+            modal.style.display = "block";
+            if (image.image) {
+                modalImg.style.display = "block";
+                modalImg.src = this.src;
+            } else {
+                modalImg.style.display = "none";
+            }
+            
+            if (image.video) {
+                modalVideo.style.display = "block";
+                modalVideo.src = this.src;
+            } else {
+                modalVideo.style.display = "none";
+            }         
 
+            captionText.innerHTML = this.alt;
+            currentIndex = index;
+            
+        }
+
+        prev.onclick = function() {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+            if(images[currentIndex].image){
+                modalImg.src = `../../assets/Sample_Photos/${photographer.name}/${images[currentIndex].image}`;
+            }else {
+                modalVideoSource = `../../assets/Sample_Photos/${photographer.name}/${images[currentIndex].video}`;
+            }
+            captionText.innerHTML = images[currentIndex].alt;
+        };
+    
+        next.onclick = function() {
+            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+            if(images[currentIndex].image){
+                modalImg.src = `../../assets/Sample_Photos/${photographer.name}/${images[currentIndex].image}`;
+            }else {
+                modalVideoSource = `../../assets/Sample_Photos/${photographer.name}/${images[currentIndex].video}`;
+            }                
+            captionText.innerHTML = images[currentIndex].alt;
+        };
+
+        var close = document.querySelector(".image_close");
+        close.onclick = function() { 
+            modal.style.display = "none";
+        }
 
         let images_infos = document.createElement('div');
         images_infos.classList.add('imagesInfos');
@@ -95,9 +163,9 @@ async function displayPhotographerImages(images){
         like_icon.classList.add('like_icon');
 
         let button = document.createElement('button');
+
         button.innerHTML = ` 
-            <i class="fa-regular fa-heart icon-default"></i>
-            <i class="fa-solid fa-heart icon-click"></i>
+        <i class="fa-regular fa-heart icon-default"></i>
         `;
 
         span.textContent = image.likes;
@@ -112,7 +180,36 @@ async function displayPhotographerImages(images){
         imgDiv.appendChild(mediaElement);
         imgDiv.appendChild(images_infos)
         galleryDiv.appendChild(imgDiv);
+
+        button.addEventListener('click', function() {
+            let regularHeart = this.querySelector('.fa-regular.fa-heart');
+            
+            if (regularHeart) {
+                button.innerHTML = ` 
+                <i class="fa-solid fa-heart icon-click"></i>
+                `;
+                span.textContent++;
+                
+            } else {
+                button.innerHTML = ` 
+                    <i class="fa-regular fa-heart icon-default"></i>
+                `;
+                span.textContent--;
+            }
+        });
     });
+
+    // prev.onclick = function() {
+    //     currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+    //     modalImg.src = `../../assets/Sample_Photos/${photographer.name}/${images[currentIndex].image}`;
+    //     captionText.innerHTML = images[currentIndex].alt;
+    // };
+
+    // next.onclick = function() {
+    //     currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+    //     modalImg.src = `../../assets/Sample_Photos/${photographer.name}/${images[currentIndex].image}`;
+    //     captionText.innerHTML = images[currentIndex].alt;
+    // };
 }
 
 function sortByDate(a, b) {
@@ -132,9 +229,9 @@ async function init() {
     // Récupère les datas du photographe
 
     const photographerId = getPhotographerIdFromUrl();
-    const photographer = await getPhotographerById(photographerId);
+    // const photographer = await getPhotographerById(photographerId);
 
-    let images = await getPhotographerIamgesById(photographer.id);
+    let images = await getPhotographerIamgesById(photographerId);
 
     images.sort(sortByPopularity);
 
@@ -177,17 +274,3 @@ filterOptions.forEach(option => {
     });
 });
 
-window.addEventListener('load', (event) => {
-    document.querySelector('.like_icon button').addEventListener('click', function() {
-        let regularHeart = this.querySelector('.fa-regular.fa-heart');
-        let solidHeart = this.querySelector('.fa-solid.fa-heart');
-    
-        if (regularHeart.style.display === 'none') {
-            regularHeart.style.display = 'block';
-            solidHeart.style.display = 'none';
-        } else {
-            regularHeart.style.display = 'none';
-            solidHeart.style.display = 'block';
-        }
-    });
-});

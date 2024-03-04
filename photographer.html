@@ -41,6 +41,15 @@
         <div class="images-gallery"></div>
       </div>
     </main>
+
+    <div id="image_modal" class="img_modal">
+      <span class="image_close">&times;</span>
+      <a class="prev">&#10094;</a>
+      <img class="image-modal-content" id="img_content">
+      <video class="video-modal-content" id="video_content"><source src="" type="video/mp4" class="video-modal-source"></video>
+      <a class="next">&#10095;</a>
+      <div id="image_caption"></div>
+    </div>
     
     <div id="contact_modal">
 			<div class="modal">
@@ -51,7 +60,28 @@
 				<form>
 					<div>
 						<label>Prénom</label>
-						<input />
+						<input 
+            class="text-control"
+            type="text"
+            />
+					</div>
+          <div>
+						<label>Nom</label>
+						<input 
+            class="text-control"
+            type="text"
+            />
+					</div>
+          <div>
+						<label>Email</label>
+						<input 
+            class="text-control"
+            type="email"
+            />
+					</div>
+          <div>
+						<label>Votre message</label>
+						<textarea></textarea>
 					</div>
           <button class="contact_button">Envoyer</button>
 				</form>
