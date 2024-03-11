@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <link href="css/photographer.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
@@ -12,30 +12,30 @@
   </head>
   <body>
     <header>
-      <img src="assets/images/logo.png" class="logo" />
+      <img src="assets/images/logo.png" class="logo" alt="Fisheye"/>
     </header>
 
     <main id="main">
       <div class="photograph-header">
         <div>
           <h1 class="photographer-name"></h1>
-          <h3 class="location-name"></h3>
+          <h2 class="location-name"></h2>
           <p class="tagline"></p>
         </div>
         <div>
           <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
         </div>
         <div>
-          <img class="photographer-image" src="" alt="">
+          <img class="photographer-image" src="" alt="Portrait du photographe">
         </div>
       </div>
       <div class="photograph-body">
         <div class="dropdown-list">
           <span>Trier par</span>
           <ul class="dropdown-list-filter">
-            <li class="filter-option">Popularité</li>
-            <li class="filter-option hidden">Date</li>
-            <li class="filter-option hidden">Titre</li>
+            <li class="filter-option" aria-label="Trier par popularité">Popularité <span class="arrow"><i class="fa-solid fa-angle-down"></i></span></li>
+            <li class="filter-option hidden"aria-label="Trier par date">Date <span class="arrow"><i class="fa-solid fa-angle-down"></i></span></li>
+            <li class="filter-option hidden" aria-label="Trier par titre">Titre <span class="arrow"><i class="fa-solid fa-angle-down"></i></span></li>
           </ul>
         </div>
         <div class="images-gallery"></div>
@@ -46,7 +46,8 @@
       <span class="image_close">&times;</span>
       <a class="prev">&#10094;</a>
       <img class="image-modal-content" id="img_content">
-      <video class="video-modal-content" id="video_content"><source src="" type="video/mp4" class="video-modal-source"></video>
+      <video class="video-modal-content" id="video_content">
+      </video>
       <a class="next">&#10095;</a>
       <div id="image_caption"></div>
     </div>
@@ -87,7 +88,12 @@
 				</form>
 			</div>
 		</div>
+    <div class="infos-frame">
+      <span class="likes-count"></span>
+      <span class="prestation-price"></span>
+    </div>
     <script src="./scripts/pages/photographer.js"></script>
     <script src="./scripts/utils/contactForm.js"></script>
   </body>
 </html>
+
