@@ -114,7 +114,9 @@ async function displayPhotographerImages(images){
             currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
             if(images[currentIndex].image){
                 modalImg.src = `../../assets/Sample_Photos/${photographer.name}/${images[currentIndex].image}`;
-            }else {
+                modalImg.style.display = "block";
+                modalVideo.style.display = "none";
+            }else if(images[currentIndex].video) {
                 modalImg.style.display = "none";
                 modalVideo.style.display = "block";
                 modalVideo.src = `../../assets/Sample_Photos/${photographer.name}/${images[currentIndex].video}`;
@@ -127,6 +129,8 @@ async function displayPhotographerImages(images){
             currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
             if(images[currentIndex].image){
                 modalImg.src = `../../assets/Sample_Photos/${photographer.name}/${images[currentIndex].image}`;
+                modalImg.style.display = "block";
+                modalVideo.style.display = "none";
             }else {
                 modalImg.style.display = "none";
                 modalVideo.style.display = "block";
