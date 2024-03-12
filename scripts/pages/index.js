@@ -1,3 +1,4 @@
+    import {photographerTemplate} from '../templates/photographerTemplate.js';
     async function getPhotographers() {
 
         try {
