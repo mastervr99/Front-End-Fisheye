@@ -1,4 +1,3 @@
-//Mettre le code JavaScript lié à la page photographer.html
 
 function getPhotographerIdFromUrl() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -80,19 +79,21 @@ async function displayPhotographerImages(images){
             mediaElement.classList.add('video-item');
 
             mediaElement.src = `../../assets/Sample_Photos/${photographer.name}/${image.video}`;
+            mediaElement.setAttribute("track", image.title)
 
         } else {
             mediaElement = document.createElement('img');
             mediaElement.src = `../../assets/Sample_Photos/${photographer.name}/${image.image}`;
-
+            mediaElement.alt = image.title;
         }
-        mediaElement.alt = image.title;
         
         mediaElement.onclick = function(){
             modal.style.display = "block";
             if (image.image) {
                 modalImg.style.display = "block";
                 modalImg.src = this.src;
+                modalImg.alt = image.title;
+
             } else {
                 modalImg.style.display = "none";
             }
@@ -100,7 +101,8 @@ async function displayPhotographerImages(images){
             if (image.video) {
                 modalVideo.style.display = "block";
                 modalVideo.src = this.src;
-                modalVideo.setAttribute("controls", "true");
+                modalVideo.setAttribute("track", image.title)
+
             } else {
                 modalVideo.style.display = "none";
             }         
@@ -218,7 +220,7 @@ async function displayFrameData(){
     });
 
     let likesCounter = document.querySelector('.likes-count');
-    likesCounter.innerHTML = sumLikes + ' <i class="fa-solid fa-heart icon-heart">';
+    likesCounter.innerHTML = sumLikes + ' <i class="fa-solid fa-heart icon-heart" aria-label="likes">';
 
     let prestationPrice = document.querySelector(".prestation-price");
     prestationPrice.innerHTML = photographer.price + "€ / jour";

@@ -23,19 +23,19 @@
           <p class="tagline"></p>
         </div>
         <div>
-          <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+          <button class="contact_button">Contactez-moi</button>
         </div>
         <div>
-          <img class="photographer-image" src="" alt="Portrait du photographe">
+          <img class="photographer-image" alt="Portrait du photographe">
         </div>
       </div>
       <div class="photograph-body">
         <div class="dropdown-list">
           <span>Trier par</span>
           <ul class="dropdown-list-filter">
-            <li class="filter-option" aria-label="Trier par popularité">Popularité <span class="arrow"><i class="fa-solid fa-angle-down"></i></span></li>
-            <li class="filter-option hidden"aria-label="Trier par date">Date <span class="arrow"><i class="fa-solid fa-angle-down"></i></span></li>
-            <li class="filter-option hidden" aria-label="Trier par titre">Titre <span class="arrow"><i class="fa-solid fa-angle-down"></i></span></li>
+            <li tabindex="0" class="filter-option" aria-label="Trier par popularité" role="button">Popularité <span class="arrow"><i class="fa-solid fa-angle-down"></i></span></li>
+            <li tabindex="0" class="filter-option hidden"aria-label="Trier par date" role="button">Date <span class="arrow"><i class="fa-solid fa-angle-down"></i></span></li>
+            <li tabindex="0" class="filter-option hidden" aria-label="Trier par titre" role="button">Titre <span class="arrow"><i class="fa-solid fa-angle-down"></i></span></li>
           </ul>
         </div>
         <div class="images-gallery"></div>
@@ -44,17 +44,15 @@
 
     <div id="image_modal" class="img_modal">
       <div class="image_modal_cadre">
-        <a class="prev">&#10094;</a>
-        <!-- <div>
-        </div> -->
+        <a class="prev" aria-label="aller à l'image précédente">&#10094;</a>
         <div class="media_element">
           <img class="image-modal-content" id="img_content">
-          <video class="video-modal-content" id="video_content">
+          <video class="video-modal-content" id="video_content" controls>
           </video>
           <div id="image_caption"></div>
           <span class="image_close">&times;</span>
         </div>
-        <a class="next">&#10095;</a>
+        <a class="next" aria-label="aller à l'image suivante">&#10095;</a>
       </div>
     </div>
     
@@ -62,33 +60,36 @@
 			<div class="modal">
 				<header>
           <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <img src="assets/icons/close.svg" alt="Fermer">
         </header>
 				<form>
 					<div>
-						<label>Prénom</label>
+						<label for="prenom">Prénom</label>
 						<input 
             class="text-control"
             type="text"
+            name="prénom"
             />
 					</div>
           <div>
-						<label>Nom</label>
+						<label for="nom">Nom</label>
 						<input 
             class="text-control"
             type="text"
+            name="nom"
             />
 					</div>
           <div>
-						<label>Email</label>
+						<label for="email">Email</label>
 						<input 
             class="text-control"
             type="email"
+            name="email"
             />
 					</div>
           <div>
-						<label>Votre message</label>
-						<textarea></textarea>
+						<label for="message">Votre message</label>
+						<textarea name="message"></textarea>
 					</div>
           <button class="contact_button">Envoyer</button>
 				</form>
