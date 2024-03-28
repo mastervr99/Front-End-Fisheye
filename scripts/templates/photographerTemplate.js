@@ -8,6 +8,7 @@ export function photographerTemplate(data) {
         const a = document.createElement('a');
         a.href = `photographer.html?id=${id}`;
         a.title = `profil de ${name}`;
+        a.setAttribute("role","image");
 
         const img = document.createElement( 'img' );
         img.setAttribute("src", picture)

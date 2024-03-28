@@ -12,7 +12,9 @@
   </head>
   <body>
     <header>
-      <img src="assets/images/logo.png" class="logo" alt="Fisheye"/>
+      <a href="/index.html" title="aller à la page d'accueil" tabindex="0" role="link">
+        <img src="assets/images/logo.png" class="logo" alt="Fisheye"/>
+      </a>
     </header>
 
     <main id="main">
@@ -23,7 +25,7 @@
           <p class="tagline"></p>
         </div>
         <div>
-          <button class="contact_button">Contactez-moi</button>
+          <button class="contact_button" role="button">Contactez-moi</button>
         </div>
         <div>
           <img class="photographer-image" alt="Portrait du photographe">
@@ -32,7 +34,7 @@
       <div class="photograph-body">
         <div class="dropdown-list">
           <span>Trier par</span>
-          <ul class="dropdown-list-filter">
+          <ul class="dropdown-list-filter" tabindex="0">
             <li tabindex="0" class="filter-option" aria-label="Trier par popularité" role="button">Popularité <span class="arrow"><i class="fa-solid fa-angle-down"></i></span></li>
             <li tabindex="0" class="filter-option hidden"aria-label="Trier par date" role="button">Date <span class="arrow"><i class="fa-solid fa-angle-down"></i></span></li>
             <li tabindex="0" class="filter-option hidden" aria-label="Trier par titre" role="button">Titre <span class="arrow"><i class="fa-solid fa-angle-down"></i></span></li>
@@ -44,54 +46,62 @@
 
     <div id="image_modal" class="img_modal">
       <div class="image_modal_cadre">
-        <a class="prev" aria-label="aller à l'image précédente">&#10094;</a>
+        <a class="prev" aria-label="aller à l'image précédente" tabindex="0">&#10094;</a>
         <div class="media_element">
           <img class="image-modal-content" id="img_content">
           <video class="video-modal-content" id="video_content" controls>
           </video>
-          <div id="image_caption"></div>
-          <span class="image_close">&times;</span>
+          <div id="image_caption"><span></span></div>
+          <span class="image_close" tabindex="0">&times;</span>
         </div>
-        <a class="next" aria-label="aller à l'image suivante">&#10095;</a>
+        <a class="next" aria-label="aller à l'image suivante" tabindex="0">&#10095;</a>
       </div>
     </div>
     
-    <div id="contact_modal">
+    <div id="contact_modal" role="dialog">
 			<div class="modal">
 				<header>
           <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" alt="Fermer">
+          <img src="assets/icons/close.svg" alt="Fermer" tabindex="0">
         </header>
-				<form>
-					<div>
+				<form
+        name="contact"
+        method="get"
+        onsubmit="return validate();"
+        aria-label=" Contacter le photographe"
+        >
+					<div class="formData">
 						<label for="prenom">Prénom</label>
 						<input 
             class="text-control"
             type="text"
+            id="first"
             name="prénom"
             />
 					</div>
-          <div>
+          <div class="formData">
 						<label for="nom">Nom</label>
 						<input 
             class="text-control"
             type="text"
             name="nom"
+            id="last"
             />
 					</div>
-          <div>
+          <div class="formData">
 						<label for="email">Email</label>
 						<input 
             class="text-control"
             type="email"
             name="email"
+            id="email"
             />
 					</div>
-          <div>
+          <div class="form_message formData">
 						<label for="message">Votre message</label>
-						<textarea name="message"></textarea>
+						<textarea name="message" id="message"></textarea>
 					</div>
-          <button class="contact_button">Envoyer</button>
+          <button class="contact_button" type="submit" role="button">Envoyer</button>
 				</form>
 			</div>
 		</div>
