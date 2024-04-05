@@ -107,6 +107,8 @@ async function displayPhotographerImages(images){
         mediaElement.onclick = function(){
             modal.style.display = "block";
             is_image_model_open = true;
+            document.querySelector(".prev").focus();
+
             if (image.image) {
                 modalImg.style.display = "block";
                 modalImg.src = this.src;
@@ -130,6 +132,40 @@ async function displayPhotographerImages(images){
             currentIndex = index;
             
         }
+
+
+
+        mediaElement.addEventListener('keydown', function(event){
+            if(event.key == 'Enter'){
+                modal.style.display = "block";
+                is_image_model_open = true;
+                document.querySelector(".prev").focus();
+    
+                if (image.image) {
+                    modalImg.style.display = "block";
+                    modalImg.src = this.src;
+                    modalImg.alt = image.title;
+                    captionText.innerHTML = this.alt;
+    
+                } else {
+                    modalImg.style.display = "none";
+                }
+    
+                if (image.video) {
+                    modalVideo.style.display = "block";
+                    modalVideo.src = this.src;
+                    modalVideo.setAttribute("track", image.title)
+                    captionText.innerHTML = image.title;
+    
+                } else {
+                    modalVideo.style.display = "none";
+                }         
+    
+                currentIndex = index;
+            }
+        });
+
+  
 
         prev.onclick = function() {
             currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
@@ -230,8 +266,10 @@ async function displayPhotographerImages(images){
                 displayFrameData();
             }
         });
+        
     });
 }
+
 
 document.addEventListener('keydown', function(event) {
     if(is_image_model_open){
@@ -309,70 +347,75 @@ init();
 let filterOptions = document.querySelectorAll('.dropdown-list-filter .filter-option');
 let currentOption = filterOptions[0];
 
-filterOptions.forEach(option => {
-    option.addEventListener('click', async function() {
+function showOptions() {
+    filterOptions.forEach(opt => {
+        opt.classList.remove('hidden');
+        opt.querySelector('.arrow').style.display = 'none';
+        opt.querySelector('.arrow').style.transform = 'rotate(180deg)';
+    });
+}
 
-        let isOptionsHidden = Array.from(filterOptions).some(opt => opt.classList.contains('hidden'));
-
-        if(isOptionsHidden){
-            filterOptions.forEach(opt => {
-                opt.classList.remove('hidden');
-                opt.querySelector('.arrow').style.display = 'none';
-
-                opt.querySelector('.arrow').style.transform = 'rotate(180deg)';
-            });
-
-            this.querySelector('.arrow').style.display = 'inline';
-            document.querySelector('.dropdown-list-filter').classList.add('open');
-
-        } else{
-
-            if (this === document.querySelector('.dropdown-list-filter .filter-option:not(.hidden)'))  {
-                filterOptions.forEach(opt => {
-                    if (opt !== this) {
-                        opt.classList.add('hidden');
-                    }
-                });
-                document.querySelector('.dropdown-list-filter').classList.remove('open');
-                this.querySelector('.arrow').style.transform = 'rotate(0deg)';
-
-                return;
-            }
-
-
-            filterOptions.forEach(opt => {
-                if (opt !== this) {
-                    opt.classList.add('hidden');
-                }
-            });
-
-            document.querySelector('.dropdown-list-filter').classList.remove('open');
-
-            this.parentElement.prepend(this);
-            
-            currentOption = this;
-
-            let photographerId = getPhotographerIdFromUrl();
-
-            let images = await getPhotographerIamgesById(photographerId);
-
-            if (this.textContent.trim() === 'Date') {
-                images.sort(sortByDate);
-            } else if (this.textContent.trim() === 'Titre') {
-                images.sort(sortByTitle);
-            } else {
-                images.sort(sortByPopularity);
-            }
-
-            let galleryDiv = document.querySelector('.images-gallery');
-            galleryDiv.innerHTML = '';
-            displayPhotographerImages(images);
-            this.querySelector('.arrow').style.transform = 'rotate(0deg)';
-            this.querySelector('.arrow').style.display = 'inline';
+function hideOptions(option) {
+    filterOptions.forEach(opt => {
+        if (opt !== option) {
+            opt.classList.add('hidden');
         }
-        
+    });
+    document.querySelector('.dropdown-list-filter').classList.remove('open');
+    option.querySelector('.arrow').style.transform = 'rotate(0deg)';
+}
+
+async function updateGallery(option) {
+    let photographerId = getPhotographerIdFromUrl();
+    let images = await getPhotographerIamgesById(photographerId);
+
+    if (option.textContent.trim() === 'Date') {
+        images.sort(sortByDate);
+    } else if (option.textContent.trim() === 'Titre') {
+        images.sort(sortByTitle);
+    } else {
+        images.sort(sortByPopularity);
+    }
+
+    let galleryDiv = document.querySelector('.images-gallery');
+    galleryDiv.innerHTML = '';
+    displayPhotographerImages(images);
+    option.querySelector('.arrow').style.transform = 'rotate(0deg)';
+    option.querySelector('.arrow').style.display = 'inline';
+}
+
+filterOptions.forEach(option => {
+    option.addEventListener('keydown', async function(e) {
+        if (e.key == 'Enter'){
+            handleOptionSelection(this);
+        }       
+    });
+
+    option.addEventListener('click', async function() {
+        handleOptionSelection(this);
     });
 });
+
+async function handleOptionSelection(option) {
+    let isOptionsHidden = Array.from(filterOptions).some(opt => opt.classList.contains('hidden'));
+    let diplayedOption = document.querySelector('.dropdown-list-filter .filter-option:not(.hidden)');
+
+    if(isOptionsHidden){
+        showOptions();
+        option.querySelector('.arrow').style.display = 'inline';
+        document.querySelector('.dropdown-list-filter').classList.add('open');
+    } else{
+        if (option === diplayedOption)  {
+            hideOptions(option);
+            return;
+        }
+
+        hideOptions(option);
+        option.parentElement.prepend(option);
+        currentOption = option;
+        await updateGallery(option);
+    }
+}
 
 function sortByDate(a, b) {
     return new Date(b.date) - new Date(a.date);
@@ -393,16 +436,31 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
+var dropdown = document.querySelector('.dropdown-list-filter');
+
 document.addEventListener('click', function(event) {
-    var dropdown = document.querySelector('.dropdown-list-filter');
     if (dropdown.classList.contains('open') && !dropdown.contains(event.target)) {
         dropdown.classList.remove('open');
-        filterOptions.forEach((option) => {
-            if (option !== currentOption) {
-                option.classList.add('hidden');
-                this.querySelector('.arrow').style.transform = 'rotate(0deg)';
-                this.querySelector('.arrow').style.display = 'inline';
-            }
-        });
+        hideOptions(currentOption);
+    }
+});
+
+document.addEventListener('keydown', function(event) {
+    if (dropdown.classList.contains('open') && event.key === 'Escape') {
+        dropdown.classList.remove('open');
+        hideOptions(currentOption);
+    }
+});
+
+dropdown.addEventListener('keydown', function(e) {
+    if (e.key !== 'Enter') return;
+    let isOptionsHidden = Array.from(filterOptions).some(opt => opt.classList.contains('hidden'));
+    if(isOptionsHidden){
+        showOptions();
+        currentOption.querySelector('.arrow').style.display = 'inline';
+        document.querySelector('.dropdown-list-filter').classList.add('open');
+    } else {
+        hideOptions(currentOption);
+        currentOption.querySelector('.arrow').style.display = 'none';
     }
 });

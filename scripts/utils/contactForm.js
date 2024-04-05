@@ -3,6 +3,8 @@ let is_modal_open = false;
 function displayModal() {
   const modal = document.getElementById("contact_modal");
 	modal.style.display = "flex";
+  document.getElementById("first").focus();
+
   is_modal_open = true;
 
   setTimeout(function() {

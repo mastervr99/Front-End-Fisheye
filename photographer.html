@@ -12,7 +12,7 @@
   </head>
   <body>
     <header>
-      <a href="/index.html" title="aller à la page d'accueil" tabindex="0" role="link">
+      <a href="/index.html" title="aller à la page d'accueil"  role="link">
         <img src="assets/images/logo.png" class="logo" alt="Fisheye"/>
       </a>
     </header>
@@ -77,6 +77,7 @@
             type="text"
             id="first"
             name="prénom"
+            tabindex="0"
             />
 					</div>
           <div class="formData">
@@ -86,6 +87,7 @@
             type="text"
             name="nom"
             id="last"
+            tabindex="0"
             />
 					</div>
           <div class="formData">
@@ -95,13 +97,14 @@
             type="email"
             name="email"
             id="email"
+            tabindex="0"
             />
 					</div>
           <div class="form_message formData">
 						<label for="message">Votre message</label>
-						<textarea name="message" id="message"></textarea>
+						<textarea name="message" id="message" tabindex="0"></textarea>
 					</div>
-          <button class="contact_button" type="submit" role="button">Envoyer</button>
+          <button class="submit_button" type="submit" role="button">Envoyer</button>
 				</form>
 			</div>
 		</div>
