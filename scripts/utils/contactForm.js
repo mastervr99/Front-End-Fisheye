@@ -1,11 +1,13 @@
-let is_modal_open = false;
+let is_contact_modal_open = false;
+
+const contact_modal = document.getElementById("contact_modal");
 
 function displayModal() {
-  const modal = document.getElementById("contact_modal");
-	modal.style.display = "flex";
+	contact_modal.style.display = "flex";
   document.getElementById("first").focus();
 
-  is_modal_open = true;
+  is_contact_modal_open = true;
+  hideBackground();
 
   setTimeout(function() {
     document.addEventListener('click', closeModalOnClickOutside);
@@ -13,9 +15,10 @@ function displayModal() {
 }
 
 function closeModal() {
-  const modal = document.getElementById("contact_modal");
-  modal.style.display = "none";
-  is_modal_open = false;
+  contact_modal.style.display = "none";
+  is_contact_modal_open = false;
+  showBackground();
+
   document.removeEventListener('click', closeModalOnClickOutside);
 }
 
@@ -91,11 +94,12 @@ function validate(){
     if(is_form_wrong){
       return false;
     }
-  
-    document.getElementById('contact_modal').style.display = 'none';
-    is_modal_open = false;
+    
     console.log("Prenom: " + first.value.trim() + ', ' + "Nom : " + last.value.trim() + ', ' + "Email: " + email.value.trim() + ', ' + "Message: " + message.value.trim());
-    document.removeEventListener('click', closeModalOnClickOutside);
+  
+
+    closeModal();
+    
 
     first.value = '';
     last.value = '';
@@ -109,10 +113,8 @@ function validate(){
 
   // Close modal when Escape is pressed
 document.addEventListener('keydown', function(event) {
-    if (is_modal_open && event.key === 'Escape') {
-        document.getElementById('contact_modal').style.display = 'none';
-        is_modal_open = false;
-        document.removeEventListener('click', closeModalOnClickOutside);
+    if (is_contact_modal_open && event.key === 'Escape') {
+        closeModal();
     }
     
 });
@@ -120,10 +122,24 @@ document.addEventListener('keydown', function(event) {
 
 function closeModalOnClickOutside(event) {
   var form_modal = document.querySelector('.modal');
-  if (is_modal_open && !form_modal.contains(event.target)) {
-      document.getElementById('contact_modal').style.display = 'none';
-      is_modal_open = false;
-  
-        document.removeEventListener('click', closeModalOnClickOutside);
+  if (is_contact_modal_open && !form_modal.contains(event.target)) {
+      closeModal();
     }
+}
+
+
+const header_element = document.getElementById('header');
+const main_element = document.getElementById('main');
+const infos_frame_element = document.querySelector('.infos-frame');
+
+function hideBackground(){
+    header_element.style.display = 'none';
+    main_element.style.display = 'none';
+    infos_frame_element.style.display ='none';
+}
+
+function showBackground(){
+    header_element.style.display = 'block';
+    main_element.style.display = 'block';
+    infos_frame_element.style.display ='flex';
 }
