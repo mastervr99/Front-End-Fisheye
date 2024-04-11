@@ -8,11 +8,11 @@ export function photographerTemplate(data) {
         const a = document.createElement('a');
         a.href = `photographer.html?id=${id}`;
         a.title = `profil de ${name}`;
-        a.setAttribute("role","image");
+        a.setAttribute("aria-label","aller sur la page du photographe");
 
         const img = document.createElement( 'img' );
         img.setAttribute("src", picture)
-        img.setAttribute("alt", name);
+        img.setAttribute("alt", "image du photographe");
         
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
