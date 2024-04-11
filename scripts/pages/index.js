@@ -1,4 +1,9 @@
     import {photographerTemplate} from '../templates/photographerTemplate.js';
+    
+    /**
+     * Récupérer la liste des photographes
+     * @returns 
+     */
     async function getPhotographers() {
 
         try {
@@ -18,6 +23,10 @@
         }
     }
 
+    /**
+     * Afficher les informations des photographes
+     * @param {*} photographers 
+     */
     async function displayData(photographers) {
         const photographersSection = document.querySelector(".photographer_section");
 

@@ -2,6 +2,9 @@ let is_contact_modal_open = false;
 
 const contact_modal = document.getElementById("contact_modal");
 
+/**
+ * Afficher la modal du formulaire de contact
+ */
 function displayModal() {
 	contact_modal.style.display = "flex";
   document.getElementById("first").focus();
@@ -14,6 +17,9 @@ function displayModal() {
   }, 0);
 }
 
+/**
+ * Fermer la modal du formulaire de contact
+ */
 function closeModal() {
   contact_modal.style.display = "none";
   is_contact_modal_open = false;
@@ -34,7 +40,10 @@ document.querySelector('.modal img').addEventListener('keydown', function(event)
 
 const formData = document.getElementsByClassName("formData");
 
-// validate form
+/**
+ * Valider le formulaire
+ * @returns 
+ */
 function validate(){
 
     let first = document.getElementById("first");
@@ -119,7 +128,10 @@ document.addEventListener('keydown', function(event) {
     
 });
 
-
+/**
+ * Fermer la modal du form de contact lorsqu'on clique à l'extérieur de la modal
+ * @param {*} event 
+ */
 function closeModalOnClickOutside(event) {
   var form_modal = document.querySelector('.modal');
   if (is_contact_modal_open && !form_modal.contains(event.target)) {
@@ -132,12 +144,19 @@ const header_element = document.getElementById('header');
 const main_element = document.getElementById('main');
 const infos_frame_element = document.querySelector('.infos-frame');
 
+/**
+ * Cacher l'arrière-plan
+ */
 function hideBackground(){
     header_element.style.display = 'none';
     main_element.style.display = 'none';
     infos_frame_element.style.display ='none';
 }
 
+/**
+ * 
+ * Afficher l'arrière-plan
+ */
 function showBackground(){
     header_element.style.display = 'block';
     main_element.style.display = 'block';

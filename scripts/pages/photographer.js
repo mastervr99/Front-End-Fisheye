@@ -1,4 +1,8 @@
 
+/**
+ * récupération de l'id du photographe
+ * @returns id
+ */
 function getPhotographerIdFromUrl() {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get('id');
@@ -27,6 +31,11 @@ async function getPhotographerById(id) {
     }
 }
 
+/**
+ * récupération des images du photographe avec son id
+ * @param {number} id 
+ * @returns images
+ */
 async function getPhotographerIamgesById(id) {
 
     try {
@@ -44,6 +53,9 @@ async function getPhotographerIamgesById(id) {
     }
 }
 
+/**
+ * affichage des informations du photographe
+ */
 async function displayPhotographerData() {
     const photographerId = getPhotographerIdFromUrl();
     const photographer = await getPhotographerById(photographerId);
@@ -68,6 +80,10 @@ var modalImg = document.getElementById("img_content");
 var modalVideo = document.getElementById("video_content");
 var captionText = document.querySelector("#image_caption span");
 
+/**
+ * affichages des images du photographe
+ * @param {*} images 
+ */
 async function displayPhotographerImages(images){
     images_photographer = images;
 
@@ -122,7 +138,6 @@ async function displayPhotographerImages(images){
                 modalImg.src = this.src;
                 modalImg.alt = image.title;
                 captionText.innerHTML = this.alt;
-
             } else {
                 modalImg.style.display = "none";
             }
@@ -224,9 +239,9 @@ async function displayPhotographerImages(images){
         
         let title = document.createElement('div');
 
-        let p = document.createElement('p');
+        let h3 = document.createElement('h3');
 
-        p.textContent = image.title;
+        h3.textContent = image.title;
 
         let interactive_elements = document.createElement('div');
         interactive_elements.classList.add('interactive-elements');
@@ -248,7 +263,7 @@ async function displayPhotographerImages(images){
 
         span.textContent = image.likes;
 
-        title.appendChild(p);
+        title.appendChild(h3);
         like_icon.appendChild(button);
         interactive_elements.appendChild(span);
         interactive_elements.appendChild(like_icon);
@@ -280,24 +295,31 @@ async function displayPhotographerImages(images){
     });
 }
 
+/**
+ * création d'un div pour afficher une image/vidéo et ses informations
+ * @param {*} image 
+ * @param {*} photographer 
+ * @returns 
+ */
 function createMediaElement(image, photographer) {
     let imgDiv = document.createElement('div');
     imgDiv.className = 'image-item';
     let mediaElement;
-    
+
     if (image.video) {
-        imgDiv.setAttribute("role", "video");
+        imgDiv.setAttribute("role", "application");
         mediaElement = document.createElement('video');
         mediaElement.classList.add('video-item');
         mediaElement.src = `../../assets/Sample_Photos/${photographer.name}/${image.video}`;
+        mediaElement.setAttribute("track", image.title)
+
     } else {
-        imgDiv.setAttribute("role", "image");
+        imgDiv.setAttribute("role", "img");
         mediaElement = document.createElement('img');
         mediaElement.src = `../../assets/Sample_Photos/${photographer.name}/${image.image}`;
         mediaElement.alt = image.title;
     }
 
-    mediaElement.setAttribute("track", image.title)
     mediaElement.setAttribute("tabindex", 0)
     mediaElement.setAttribute("aria-label", image.title)
 
@@ -308,12 +330,18 @@ const header = document.getElementById('header');
 const main = document.getElementById('main');
 const infos_frame = document.querySelector('.infos-frame');
 
+/**
+ * Cacher l'arrière-plan
+ */
 function hideBackground(){
     header.style.display = 'none';
     main.style.display = 'none';
     infos_frame.style.display ='none';
 }
 
+/**
+ * Afficher l'arrière-plan
+ */
 function showBackground(){
     header.style.display = 'block';
     main.style.display = 'block';
@@ -353,6 +381,9 @@ document.addEventListener('keydown', function(event) {
     
 });
 
+/**
+ * Afficher les informations du cadre
+ */
 async function displayFrameData(){
     let photographerId = getPhotographerIdFromUrl();
     let photographer = await getPhotographerById(photographerId);
@@ -396,6 +427,9 @@ init();
 let filterOptions = document.querySelectorAll('.dropdown-list-filter .filter-option');
 let currentOption = filterOptions[0];
 
+/**
+ * Afficher les options de filtre
+ */
 function showOptions() {
     filterOptions.forEach(opt => {
         opt.classList.remove('hidden');
@@ -404,6 +438,10 @@ function showOptions() {
     });
 }
 
+/**
+ * Cacher les options de filtre
+ * @param {*} option 
+ */
 function hideOptions(option) {
     filterOptions.forEach(opt => {
         if (opt !== option) {
@@ -414,6 +452,10 @@ function hideOptions(option) {
     option.querySelector('.arrow').style.transform = 'rotate(0deg)';
 }
 
+/**
+ * Mettre à jour la gallery photo
+ * @param {*} option 
+ */
 async function updateGallery(option) {
     let photographerId = getPhotographerIdFromUrl();
     let images = await getPhotographerIamgesById(photographerId);
@@ -445,6 +487,11 @@ filterOptions.forEach(option => {
     });
 });
 
+/**
+ * gestion de l'affichage de la gallery en fonction des options choisies
+ * @param {*} option 
+ * @returns 
+ */
 async function handleOptionSelection(option) {
     let isOptionsHidden = Array.from(filterOptions).some(opt => opt.classList.contains('hidden'));
     let diplayedOption = document.querySelector('.dropdown-list-filter .filter-option:not(.hidden)');
@@ -466,14 +513,32 @@ async function handleOptionSelection(option) {
     }
 }
 
+/**
+ * filtrer les images par date
+ * @param {*} a 
+ * @param {*} b 
+ * @returns 
+ */
 function sortByDate(a, b) {
     return new Date(b.date) - new Date(a.date);
 }
 
+/**
+ * filtrer les images par le titre dans l'ordre alphabétique
+ * @param {*} a 
+ * @param {*} b 
+ * @returns 
+ */
 function sortByTitle(a, b) {
     return a.title.localeCompare(b.title);
 }
 
+/**
+ * filtrer les images par le nombre de likes
+ * @param {*} a 
+ * @param {*} b 
+ * @returns 
+ */
 function sortByPopularity(a, b) {
     return b.likes - a.likes;
 }
