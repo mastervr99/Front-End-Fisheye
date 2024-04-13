@@ -8,7 +8,7 @@ export function photographerTemplate(data) {
     const picture = `../../assets/photographers/${portrait}`;
 
     /**
-     * récupération des infos du photographe
+     * création du template du photographe
      * @returns 
      */
     function getUserCardDOM() {
@@ -45,5 +45,6 @@ export function photographerTemplate(data) {
         
         return (article);
     }
+
     return { name, picture, getUserCardDOM }
 }
