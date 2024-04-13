@@ -44,7 +44,7 @@ const formData = document.getElementsByClassName("formData");
  * Valider le formulaire
  * @returns 
  */
-export function validate(){
+function validate(){
 
     let first = document.getElementById("first");
     let last = document.getElementById("last");
