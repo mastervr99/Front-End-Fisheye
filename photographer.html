@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <link href="css/photographer.css" rel="stylesheet" type="text/css" />
+    <link href="css/photographer.css" rel="stylesheet" type="text/css">
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
@@ -12,23 +12,23 @@
   </head>
   <body>
     <header id="header">
-      <a href="/index.html" title="aller à la page d'accueil"  role="link">
-        <img src="assets/images/logo.png" class="logo" alt="Fisheye"/>
+      <a href="/index.html" title="aller à la page d'accueil">
+        <img src="assets/images/logo.png" class="logo" alt="Fisheye">
       </a>
     </header>
 
     <main id="main">
       <div class="photograph-header">
         <div>
-          <h1 class="photographer-name"></h1>
-          <h2 class="location-name"></h2>
-          <p class="tagline"></p>
+          <h1 class="photographer-name">...</h1>
+          <h2 class="location-name">...</h2>
+          <p class="tagline">...</p>
         </div>
         <div>
-          <button class="contact_button" role="button">Contactez-moi</button>
+          <button class="contact_button">Contactez-moi</button>
         </div>
         <div>
-          <img class="photographer-image" alt="Portrait du photographe">
+          <img class="photographer-image" alt="Portrait du photographe" src="#">
         </div>
       </div>
       <div class="photograph-body">
@@ -36,7 +36,7 @@
           <span>Trier par</span>
           <ul class="dropdown-list-filter" tabindex="0">
             <li tabindex="0" class="filter-option" aria-label="Trier par popularité">Popularité <span class="arrow"><i class="fa-solid fa-angle-down"></i></span></li>
-            <li tabindex="0" class="filter-option hidden"aria-label="Trier par date">Date <span class="arrow"><i class="fa-solid fa-angle-down"></i></span></li>
+            <li tabindex="0" class="filter-option hidden" aria-label="Trier par date">Date <span class="arrow"><i class="fa-solid fa-angle-down"></i></span></li>
             <li tabindex="0" class="filter-option hidden" aria-label="Trier par titre">Titre <span class="arrow"><i class="fa-solid fa-angle-down"></i></span></li>
           </ul>
         </div>
@@ -46,15 +46,15 @@
 
     <div id="image_modal" class="img_modal">
       <div class="image_modal_cadre">
-        <a class="prev" aria-label="aller à l'image précédente" tabindex="0">&#10094;</a>
+        <a class="prev" aria-label="aller à l'image précédente">&#10094;</a>
         <div class="media_element">
-          <img class="image-modal-content" id="img_content">
+          <img class="image-modal-content" id="img_content" alt="media" src="#">
           <video class="video-modal-content" id="video_content" controls>
           </video>
           <div id="image_caption"><span></span></div>
           <span class="image_close" tabindex="0">&times;</span>
         </div>
-        <a class="next" aria-label="aller à l'image suivante" tabindex="0">&#10095;</a>
+        <a class="next" aria-label="aller à l'image suivante">&#10095;</a>
       </div>
     </div>
     
@@ -78,7 +78,7 @@
             id="first"
             name="first"
             tabindex="0"
-            />
+            >
 					</div>
           <div class="formData">
 						<label for="last">Nom</label>
@@ -88,7 +88,7 @@
             name="last"
             id="last"
             tabindex="0"
-            />
+            >
 					</div>
           <div class="formData">
 						<label for="email">Email</label>
@@ -98,13 +98,13 @@
             name="email"
             id="email"
             tabindex="0"
-            />
+            >
 					</div>
           <div class="form_message formData">
 						<label for="message">Votre message</label>
 						<textarea name="message" id="message" tabindex="0"></textarea>
 					</div>
-          <button class="submit_button" type="submit" role="button">Envoyer</button>
+          <button class="submit_button" type="submit">Envoyer</button>
 				</form>
 			</div>
 		</div>
