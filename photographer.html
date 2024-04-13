@@ -78,7 +78,11 @@
             id="first"
             name="first"
             tabindex="0"
+            aria-required="true"
+            required
+            aria-describedby="firstError"
             >
+            <div id="firstError" class="error-message" aria-live="polite" style="display: none;"></div>
 					</div>
           <div class="formData">
 						<label for="last">Nom</label>
@@ -88,7 +92,11 @@
             name="last"
             id="last"
             tabindex="0"
+            aria-required="true"
+            required
+            aria-describedby="lastError"
             >
+            <div id="lastError" class="error-message" aria-live="polite" style="display: none;"></div>
 					</div>
           <div class="formData">
 						<label for="email">Email</label>
@@ -98,12 +106,16 @@
             name="email"
             id="email"
             tabindex="0"
+            aria-required="true"
+            required
+            aria-describedby="emailError"
             >
+            <div id="emailError" class="error-message" aria-live="polite" style="display: none;"></div>
 					</div>
           <div class="form_message formData">
 						<label for="message">Votre message</label>
-						<textarea name="message" id="message" tabindex="0"></textarea>
-					</div>
+						<textarea name="message" id="message" tabindex="0" aria-required="true" required aria-describedby="messageError"></textarea>
+          </div>
           <button class="submit_button" type="submit">Envoyer</button>
 				</form>
 			</div>

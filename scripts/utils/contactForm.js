@@ -38,7 +38,7 @@ document.querySelector('.modal img').addEventListener('keydown', function(event)
   }
 });
 
-const formData = document.getElementsByClassName("formData");
+// const formData = document.getElementsByClassName("formData");
 
 /**
  * Valider le formulaire
@@ -52,52 +52,40 @@ function validate(){
     let message = document.getElementById("message");
   
     let is_form_wrong = false;
-  
-    if (!first.value.trim()) {
-      formData[0].setAttribute("data-error-visible", "true");
-      formData[0].setAttribute("data-error", "Veuillez entrer votre prénom.");
+
+    if(first.value.trim().length < 2) {
+      document.getElementById('firstError').textContent = "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
+      document.getElementById('firstError').style.display = "block";
+      first.focus();
       is_form_wrong = true;
-    } else if (first.value.trim().length < 2) {
-      formData[0].setAttribute("data-error-visible", "true");
-      formData[0].setAttribute("data-error", "Veuillez entrer 2 caractères ou plus pour le champ du prénom.");
-      is_form_wrong = true;
+
     } else {
-      formData[0].setAttribute("data-error-visible", "false");
+      document.getElementById('firstError').style.display = "none";
+
     }
   
-    if (!last.value.trim()) {
-      formData[1].setAttribute("data-error-visible", "true");
-      formData[1].setAttribute("data-error", "Veuillez entrer votre nom.");
-      is_form_wrong = true;
-    } else if (last.value.trim().length < 2) {
-      formData[1].setAttribute("data-error-visible", "true");
-      formData[1].setAttribute("data-error", "Veuillez entrer 2 caractères ou plus pour le champ du nom.");
+
+    if (last.value.trim().length < 2) {
+      document.getElementById('lastError').textContent = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
+      document.getElementById('lastError').style.display = "block";
+      last.focus();
       is_form_wrong = true;
     } else {
-      formData[1].setAttribute("data-error-visible", "false");
+      document.getElementById('lastError').style.display = "none";
     }
   
     const emailRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]{2,})+$/;
-  
-    if(!email.value.trim()){
-      formData[2].setAttribute("data-error-visible", "true");
-      formData[2].setAttribute("data-error", "Veuillez entrer un email.");
-      is_form_wrong = true;
-    } else if(!emailRegExp.test(email.value.trim())){
-      formData[2].setAttribute("data-error-visible", "true");
-      formData[2].setAttribute("data-error", "Veuillez entrer un email valide.");
-      is_form_wrong = true;
-    } else {
-      formData[2].setAttribute("data-error-visible", "false");
-    }
 
-    if (!message.value.trim()) {
-        formData[3].setAttribute("data-error-visible", "true");
-        formData[3].setAttribute("data-error", "Veuillez entrer un message.");
-        is_form_wrong = true;
-      } else {
-        formData[3].setAttribute("data-error-visible", "false");
-      }
+    
+    if(!emailRegExp.test(email.value.trim())){
+      document.getElementById('emailError').textContent = "Veuillez entrer un email valide.";
+      document.getElementById('emailError').style.display = "block";
+      email.focus();
+      is_form_wrong = true;
+
+    } else {
+      document.getElementById('emailError').style.display = "none";
+    }
   
   
     if(is_form_wrong){

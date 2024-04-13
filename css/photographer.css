@@ -386,13 +386,13 @@ form input {
     border: none;
 }
 
-.formData[data-error]::after {
+/* .formData[data-error]::after {
     content: attr(data-error);
     font-size: 25px;
     color: white;
     display: block;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     text-align: left;
     line-height: 0.3;
     opacity: 0;
@@ -405,7 +405,7 @@ form input {
 
 .formData[data-error-visible="true"] .text-control {
     border: 2px solid #e54858;
-}
+} */
 
 .submit_button {
     font-family: "DM Sans", sans-serif;
