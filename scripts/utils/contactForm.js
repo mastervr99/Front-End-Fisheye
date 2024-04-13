@@ -44,7 +44,7 @@ const formData = document.getElementsByClassName("formData");
  * Valider le formulaire
  * @returns 
  */
-function validate(){
+export function validate(){
 
     let first = document.getElementById("first");
     let last = document.getElementById("last");
@@ -133,7 +133,7 @@ document.addEventListener('keydown', function(event) {
  * @param {*} event 
  */
 function closeModalOnClickOutside(event) {
-  var form_modal = document.querySelector('.modal');
+  let form_modal = document.querySelector('.modal');
   if (is_contact_modal_open && !form_modal.contains(event.target)) {
       closeModal();
     }

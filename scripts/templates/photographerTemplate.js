@@ -1,7 +1,16 @@
+/**
+ * création du template présentatioon du photographe sur la page d'acceuil
+ * @param {*} data 
+ * @returns 
+ */
 export function photographerTemplate(data) {
     const { id, name, portrait, city, country, tagline, price } = data;
     const picture = `../../assets/photographers/${portrait}`;
 
+    /**
+     * récupération des infos du photographe
+     * @returns 
+     */
     function getUserCardDOM() {
         const article = document.createElement( 'article' );
         

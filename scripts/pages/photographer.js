@@ -75,10 +75,10 @@ let currentIndex = 0;
 let images_photographer = [];
 let current_photographer = null;
 
-var image_modal = document.getElementById('image_modal');
-var modalImg = document.getElementById("img_content");
-var modalVideo = document.getElementById("video_content");
-var captionText = document.querySelector("#image_caption span");
+const image_modal = document.getElementById('image_modal');
+const modalImg = document.getElementById("img_content");
+const modalVideo = document.getElementById("video_content");
+const captionText = document.querySelector("#image_caption span");
 
 /**
  * affichages des images du photographe
@@ -98,34 +98,8 @@ async function displayPhotographerImages(images){
 
 
     images.forEach((image, index) => {
-        
-        // let imgDiv = document.createElement('div');
-        // imgDiv.className = 'image-item';
-
-        // let mediaElement;
 
         let { mediaElement, imgDiv } = createMediaElement(image, photographer);
-
-        // if (image.video) {
-        //     imgDiv.setAttribute("role", "video");
-        //     mediaElement = document.createElement('video');
-        //     mediaElement.classList.add('video-item');
-
-        //     mediaElement.src = `../../assets/Sample_Photos/${photographer.name}/${image.video}`;
-        //     mediaElement.setAttribute("track", image.title)
-        //     mediaElement.setAttribute("tabindex", 0)
-        //     mediaElement.setAttribute("aria-label", image.title)
-
-        // } else {
-        //     imgDiv.setAttribute("role", "image");
-
-        //     mediaElement = document.createElement('img');
-        //     mediaElement.src = `../../assets/Sample_Photos/${photographer.name}/${image.image}`;
-        //     mediaElement.alt = image.title;
-        //     mediaElement.setAttribute("tabindex", 0)
-        //     mediaElement.setAttribute("aria-label", image.title)
-
-        // }
         
         mediaElement.onclick = function(){
             image_modal.style.display = "block";
@@ -219,7 +193,7 @@ async function displayPhotographerImages(images){
             captionText.innerHTML = images[currentIndex].title;
         };
 
-        var close = document.querySelector(".image_close");
+        let close = document.querySelector(".image_close");
         close.onclick = function() { 
             image_modal.style.display = "none";
             is_image_model_open = false;
@@ -296,35 +270,62 @@ async function displayPhotographerImages(images){
 }
 
 /**
- * création d'un div pour afficher une image/vidéo et ses informations
+ * création d'un élment video pour la gallery image
+ * @param {*} image 
+ * @param {*} photographer 
+ * @returns 
+ */
+function createVideoElement(image, photographer) {
+    let imgDiv = document.createElement('div');
+    imgDiv.className = 'image-item';
+    imgDiv.setAttribute("role", "application");
+
+    let mediaElement = document.createElement('video');
+    mediaElement.classList.add('video-item');
+    mediaElement.src = `../../assets/Sample_Photos/${photographer.name}/${image.video}`;
+    mediaElement.setAttribute("track", image.title);
+
+    mediaElement.setAttribute("tabindex", 0);
+    mediaElement.setAttribute("aria-label", image.title);
+
+    return { mediaElement, imgDiv };
+}
+
+/**
+ * création d'un élément photo pour la gallery image
+ * @param {*} image 
+ * @param {*} photographer 
+ * @returns 
+ */
+function createImageElement(image, photographer) {
+    let imgDiv = document.createElement('div');
+    imgDiv.className = 'image-item';
+    imgDiv.setAttribute("role", "img");
+
+    let mediaElement = document.createElement('img');
+    mediaElement.src = `../../assets/Sample_Photos/${photographer.name}/${image.image}`;
+    mediaElement.alt = image.title;
+
+    mediaElement.setAttribute("tabindex", 0);
+    mediaElement.setAttribute("aria-label", image.title);
+
+    return { mediaElement, imgDiv };
+}
+
+/**
+ * Insertion d'une image/vidéo et ses informations dans la gallery image
  * @param {*} image 
  * @param {*} photographer 
  * @returns 
  */
 function createMediaElement(image, photographer) {
-    let imgDiv = document.createElement('div');
-    imgDiv.className = 'image-item';
-    let mediaElement;
-
     if (image.video) {
-        imgDiv.setAttribute("role", "application");
-        mediaElement = document.createElement('video');
-        mediaElement.classList.add('video-item');
-        mediaElement.src = `../../assets/Sample_Photos/${photographer.name}/${image.video}`;
-        mediaElement.setAttribute("track", image.title)
-
+        return createVideoElement(image, photographer);
     } else {
-        imgDiv.setAttribute("role", "img");
-        mediaElement = document.createElement('img');
-        mediaElement.src = `../../assets/Sample_Photos/${photographer.name}/${image.image}`;
-        mediaElement.alt = image.title;
+        return createImageElement(image, photographer);
     }
-
-    mediaElement.setAttribute("tabindex", 0)
-    mediaElement.setAttribute("aria-label", image.title)
-
-    return { mediaElement, imgDiv };
 }
+
 
 const header = document.getElementById('header');
 const main = document.getElementById('main');
@@ -551,7 +552,7 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-var dropdown = document.querySelector('.dropdown-list-filter');
+const dropdown = document.querySelector('.dropdown-list-filter');
 
 document.addEventListener('click', function(event) {
     if (dropdown.classList.contains('open') && !dropdown.contains(event.target)) {
