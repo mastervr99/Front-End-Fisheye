@@ -327,27 +327,7 @@ function createMediaElement(image, photographer) {
 }
 
 
-const header = document.getElementById('header');
-const main = document.getElementById('main');
-const infos_frame = document.querySelector('.infos-frame');
 
-/**
- * Cacher l'arrière-plan
- */
-function hideBackground(){
-    header.style.display = 'none';
-    main.style.display = 'none';
-    infos_frame.style.display ='none';
-}
-
-/**
- * Afficher l'arrière-plan
- */
-function showBackground(){
-    header.style.display = 'block';
-    main.style.display = 'block';
-    infos_frame.style.display ='flex';
-}
 
 document.addEventListener('keydown', function(event) {
     if(is_image_model_open){
@@ -454,41 +434,6 @@ function hideOptions(option) {
 }
 
 /**
- * Mettre à jour la gallery photo
- * @param {*} option 
- */
-async function updateGallery(option) {
-    let photographerId = getPhotographerIdFromUrl();
-    let images = await getPhotographerIamgesById(photographerId);
-
-    if (option.textContent.trim() === 'Date') {
-        images.sort(sortByDate);
-    } else if (option.textContent.trim() === 'Titre') {
-        images.sort(sortByTitle);
-    } else {
-        images.sort(sortByPopularity);
-    }
-
-    let galleryDiv = document.querySelector('.images-gallery');
-    galleryDiv.innerHTML = '';
-    displayPhotographerImages(images);
-    option.querySelector('.arrow').style.transform = 'rotate(0deg)';
-    option.querySelector('.arrow').style.display = 'inline';
-}
-
-filterOptions.forEach(option => {
-    option.addEventListener('keydown', async function(e) {
-        if (e.key == 'Enter'){
-            handleOptionSelection(this);
-        }       
-    });
-
-    option.addEventListener('click', async function() {
-        handleOptionSelection(this);
-    });
-});
-
-/**
  * gestion de l'affichage de la gallery en fonction des options choisies
  * @param {*} option 
  * @returns 
@@ -544,6 +489,42 @@ function sortByPopularity(a, b) {
     return b.likes - a.likes;
 }
 
+/**
+ * Mettre à jour la gallery photo
+ * @param {*} option 
+ */
+async function updateGallery(option) {
+    let photographerId = getPhotographerIdFromUrl();
+    let images = await getPhotographerIamgesById(photographerId);
+
+    if (option.textContent.trim() === 'Date') {
+        images.sort(sortByDate);
+    } else if (option.textContent.trim() === 'Titre') {
+        images.sort(sortByTitle);
+    } else {
+        images.sort(sortByPopularity);
+    }
+
+    let galleryDiv = document.querySelector('.images-gallery');
+    galleryDiv.innerHTML = '';
+    displayPhotographerImages(images);
+    option.querySelector('.arrow').style.transform = 'rotate(0deg)';
+    option.querySelector('.arrow').style.display = 'inline';
+}
+
+filterOptions.forEach(option => {
+    option.addEventListener('keydown', async function(e) {
+        if (e.key == 'Enter'){
+            handleOptionSelection(this);
+        }       
+    });
+
+    option.addEventListener('click', async function() {
+        handleOptionSelection(this);
+    });
+});
+
+
 document.addEventListener('keydown', function(event) {
     if (is_image_model_open && event.key === 'Escape') {
         document.getElementById('image_modal').style.display = 'none';
@@ -580,3 +561,25 @@ dropdown.addEventListener('keydown', function(e) {
         currentOption.querySelector('.arrow').style.display = 'none';
     }
 });
+
+const header = document.getElementById('header');
+const main = document.getElementById('main');
+const infos_frame = document.querySelector('.infos-frame');
+
+/**
+ * Cacher l'arrière-plan
+ */
+function hideBackground(){
+    header.style.display = 'none';
+    main.style.display = 'none';
+    infos_frame.style.display ='none';
+}
+
+/**
+ * Afficher l'arrière-plan
+ */
+function showBackground(){
+    header.style.display = 'block';
+    main.style.display = 'block';
+    infos_frame.style.display ='flex';
+}
