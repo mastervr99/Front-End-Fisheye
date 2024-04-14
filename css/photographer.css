@@ -386,6 +386,10 @@ form input {
     border: none;
 }
 
+.error-message {
+    color: blue;
+}
+
 /* .formData[data-error]::after {
     content: attr(data-error);
     font-size: 25px;
