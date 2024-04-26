@@ -104,7 +104,6 @@ async function displayPhotographerImages(images){
         mediaElement.onclick = function(){
             image_modal.style.display = "block";
             is_image_model_open = true;
-            document.querySelector(".prev").focus();
             hideBackground();
 
             if (image.image) {
@@ -136,7 +135,6 @@ async function displayPhotographerImages(images){
             if(event.key == 'Enter'){
                 image_modal.style.display = "block";
                 is_image_model_open = true;
-                document.querySelector(".prev").focus();
                 hideBackground();   
     
                 if (image.image) {
@@ -177,6 +175,25 @@ async function displayPhotographerImages(images){
             }
             captionText.innerHTML = images[currentIndex].title;
         };
+
+        prev.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+                console.log(event);
+                if(images[currentIndex].image){
+                    modalImg.src = `../../assets/Sample_Photos/${photographer.name}/${images[currentIndex].image}`;
+                    modalImg.style.display = "block";
+                    modalVideo.style.display = "none";
+                }else if(images[currentIndex].video) {
+                    modalImg.style.display = "none";
+                    modalVideo.style.display = "block";
+                    modalVideo.src = `../../assets/Sample_Photos/${photographer.name}/${images[currentIndex].video}`;
+                    modalVideo.setAttribute("controls", "true");
+                }
+                captionText.innerHTML = images[currentIndex].title;
+                event.stopImmediatePropagation();       
+            }
+        });
     
         next.onclick = function() {
             currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
@@ -192,6 +209,24 @@ async function displayPhotographerImages(images){
             }                
             captionText.innerHTML = images[currentIndex].title;
         };
+
+        next.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+                if(images[currentIndex].image){
+                    modalImg.src = `../../assets/Sample_Photos/${photographer.name}/${images[currentIndex].image}`;
+                    modalImg.style.display = "block";
+                    modalVideo.style.display = "none";
+                }else {
+                    modalImg.style.display = "none";
+                    modalVideo.style.display = "block";
+                    modalVideo.src = `../../assets/Sample_Photos/${photographer.name}/${images[currentIndex].video}`;
+                    modalVideo.setAttribute("controls", "true");
+                }                
+                captionText.innerHTML = images[currentIndex].title;
+                event.stopImmediatePropagation();       
+            }
+        });
 
         let close = document.querySelector(".image_close");
         close.onclick = function() { 
