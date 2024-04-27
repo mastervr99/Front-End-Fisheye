@@ -21,7 +21,7 @@ export function photographerTemplate(data) {
 
         const img = document.createElement( 'img' );
         img.setAttribute("src", picture)
-        img.setAttribute("alt", "image du photographe");
+        img.setAttribute("alt", `image de ${name}`);
         
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;

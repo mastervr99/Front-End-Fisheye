@@ -111,7 +111,8 @@ async function displayPhotographerImages(images){
                 modalImg.style.display = "block";
                 modalImg.src = this.src;
                 modalImg.alt = image.title;
-                captionText.innerHTML = this.alt;
+                captionText.innerHTML = image.title;
+
             } else {
                 modalImg.style.display = "none";
             }
@@ -142,7 +143,7 @@ async function displayPhotographerImages(images){
                     modalImg.style.display = "block";
                     modalImg.src = this.src;
                     modalImg.alt = image.title;
-                    captionText.innerHTML = this.alt;
+                    captionText.innerHTML = image.title;
     
                 } else {
                     modalImg.style.display = "none";
@@ -159,10 +160,11 @@ async function displayPhotographerImages(images){
                 }         
     
                 currentIndex = index;
+                event.stopImmediatePropagation();       
             }
         });
 
-        prev.addEventListener('click',function() {
+        prev.addEventListener('click',function(event) {
             currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
             if(images[currentIndex].image){
                 modalImg.src = `../../assets/Sample_Photos/${photographer.name}/${images[currentIndex].image}`;
@@ -175,6 +177,7 @@ async function displayPhotographerImages(images){
                 modalVideo.setAttribute("controls", "true");
             }
             captionText.innerHTML = images[currentIndex].title;
+            event.stopImmediatePropagation();       
         });
 
         prev.addEventListener('keyup', function(event) {
@@ -196,7 +199,7 @@ async function displayPhotographerImages(images){
             }
         });
     
-        next.addEventListener('click',function() {
+        next.addEventListener('click',function(event) {
             currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
             if(images[currentIndex].image){
                 modalImg.src = `../../assets/Sample_Photos/${photographer.name}/${images[currentIndex].image}`;
@@ -209,6 +212,7 @@ async function displayPhotographerImages(images){
                 modalVideo.setAttribute("controls", "true");
             }                
             captionText.innerHTML = images[currentIndex].title;
+            event.stopImmediatePropagation();       
         });
 
         next.addEventListener('keydown', function(event) {
@@ -230,17 +234,19 @@ async function displayPhotographerImages(images){
         });
 
         let close = document.querySelector(".image_close");
-        close.addEventListener('click',function() {
+        close.addEventListener('click',function(event) {
             image_modal.style.display = "none";
             is_image_model_open = false;
             showBackground();
+            event.stopImmediatePropagation();       
         });
 
         close.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
                 image_modal.style.display = "none";
                 is_image_model_open = false;
-                showBackground();            
+                showBackground();
+                event.stopImmediatePropagation();       
             }
         });
 

@@ -21,7 +21,6 @@ export function mediaTemplate(image, photographer) {
         let mediaElement = document.createElement('video');
         mediaElement.classList.add('video-item');
         mediaElement.src = `../../assets/Sample_Photos/${photographer.name}/${image.video}`;
-        mediaElement.setAttribute("track", image.title);
 
         mediaElement.setAttribute("tabindex", 0);
         mediaElement.setAttribute("aria-label", image.title);
@@ -40,7 +39,6 @@ export function mediaTemplate(image, photographer) {
 
         let mediaElement = document.createElement('img');
         mediaElement.src = `../../assets/Sample_Photos/${photographer.name}/${image.image}`;
-        mediaElement.alt = image.title;
 
         mediaElement.setAttribute("tabindex", 0);
         mediaElement.setAttribute("aria-label", image.title);
