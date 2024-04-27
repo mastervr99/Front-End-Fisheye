@@ -102,7 +102,7 @@ async function displayPhotographerImages(images){
 
         let { mediaElement, imgDiv } = mediaTemplate(image, photographer);
         
-        mediaElement.onclick = function(){
+        mediaElement.addEventListener('click',function() {
             image_modal.style.display = "block";
             is_image_model_open = true;
             hideBackground();
@@ -128,7 +128,7 @@ async function displayPhotographerImages(images){
 
             currentIndex = index;
             
-        }
+        });
 
 
 
@@ -162,7 +162,7 @@ async function displayPhotographerImages(images){
             }
         });
 
-        prev.onclick = function() {
+        prev.addEventListener('click',function() {
             currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
             if(images[currentIndex].image){
                 modalImg.src = `../../assets/Sample_Photos/${photographer.name}/${images[currentIndex].image}`;
@@ -175,7 +175,7 @@ async function displayPhotographerImages(images){
                 modalVideo.setAttribute("controls", "true");
             }
             captionText.innerHTML = images[currentIndex].title;
-        };
+        });
 
         prev.addEventListener('keyup', function(event) {
             if (event.key === 'Enter') {
@@ -196,7 +196,7 @@ async function displayPhotographerImages(images){
             }
         });
     
-        next.onclick = function() {
+        next.addEventListener('click',function() {
             currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
             if(images[currentIndex].image){
                 modalImg.src = `../../assets/Sample_Photos/${photographer.name}/${images[currentIndex].image}`;
@@ -209,7 +209,7 @@ async function displayPhotographerImages(images){
                 modalVideo.setAttribute("controls", "true");
             }                
             captionText.innerHTML = images[currentIndex].title;
-        };
+        });
 
         next.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
@@ -230,11 +230,11 @@ async function displayPhotographerImages(images){
         });
 
         let close = document.querySelector(".image_close");
-        close.onclick = function() { 
+        close.addEventListener('click',function() {
             image_modal.style.display = "none";
             is_image_model_open = false;
             showBackground();
-        }
+        });
 
         close.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
